@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="sketch">
+<head>
+	<meta charset="UTF-8">
+	<title>sketch</title>
+	<link rel="stylesheet" href="css/index.css">
+	<script src="js/angular.js"></script>
+	<script src="js/index.js"></script>
+</head>
+<body ng-controller="sketchController">
+	<div id="menuleft">
+		<div id="box">
+			<!-- <input ng-model="canvasWH.width" type="range" min="400" max="1000" step="1" title="画板宽度"> -->
+			<!-- <input ng-model="canvasWH.height" type="range" min="400" max="600" step="1" title="画板宽度">	 -->
+		</div>
+		<ul>
+			<li ng-repeat="(key, value) in tools" ng-click="settool(value)" ng-class="{active:value==tool}" title="{{key}}">
+				<span>{{key}}</span>
+			</li>
+		</ul>
+		<div ng-class="{active:csState.style=='stroke'}" ng-click="setStyle('stroke')" id="huaxian">画线</div>
+		<div ng-class="{active:csState.style=='fill'}" ng-click="setStyle('fill')">填充</div>
+		<div id="yanse">线条颜色</div>
+		<input type="color" ng-model="csState.strokeStyle">
+		<div id="yanse">填充颜色</div>
+		<input type="color" ng-model="csState.fillStyle">
+		<div class="iconfont" id="xiantiao" title="线条粗细">&#xe601;</div>
+		<div>
+			<ul id="xiankuan">
+				<li ng-repeat="value in xiankuan" ng-click="csState.lineWidth=value">
+					<span style="height:{{value}}px;"></span>	
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div id="drawregion">
+		<canvas id="canvas" width="{{canvasWH.width}}" height="{{canvasWH.height}}"></canvas>
+	</div>
+	<div id="menuright">
+		<div class="iconfont" ng-click="newSketch()" title="新建">&#xf01ba;</div>
+	    <div class="iconfont" ng-click="save($event)" title="保存">&#xe602;</div>
+	    <div class="iconfont" title="后退一步">&#xe64d;</div>
+	</div>
+</body>
+</html>
